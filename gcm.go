@@ -30,6 +30,9 @@ func (c *Client) Send(message *Message) (*Response, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	fmt.Println("send : ", string(j))
+
 	request, err := http.NewRequest("POST", GCMSendApi, bytes.NewBuffer(j))
 	if err != nil {
 		return nil, err
@@ -66,6 +69,9 @@ func responseReply(resp *http.Response) (*Response, error) {
 	}
 
 	ret := new(Response)
+
+	fmt.Println("recv : ", string(body))
+
 	err = json.Unmarshal(body, ret)
 	return ret, err
 }
